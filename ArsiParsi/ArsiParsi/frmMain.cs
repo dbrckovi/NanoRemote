@@ -16,8 +16,44 @@ namespace ArsiParsi
       trayIcon.Icon = Properties.Resources.RemoteOff;
       _receiver.ConnectedChanged += _receiver_ConnectedChanged;
       _receiver.RawDataReceived += _receiver_RawDataReceived;
+      _receiver.ReceiveError += _receiver_ReceiveError;
+      _receiver.MessageReceived += _receiver_MessageReceived;
     }
 
+    private void _receiver_MessageReceived(RCMessage message)
+    {
+      if (this.InvokeRequired)
+      {
+        this.BeginInvoke(new Action(() => _receiver_MessageReceived(message)));
+        return;
+      }
+
+      txtProtocol.Text = message.Protocol;
+      txtAddress.Text = message.Address.ToString();
+      txtCommand.Text = message.Command.ToString();
+      txtRepeatGap.Text = message.RepeatGapMicroSeconds > 0 ? message.RepeatGapMicroSeconds.ToString(): "";
+      txtToggle.Text = message.Toggle ? "YES" : "NO";
+      txtRawData.Text = message.RawData;
+      lblMessageError.Visible = false;
+    }
+
+    private void _receiver_ReceiveError(Exception ex, string value)
+    {
+      if (this.InvokeRequired)
+      {
+        this.BeginInvoke(new Action(() => _receiver_ReceiveError(ex, value)));
+        return;
+      }
+
+      txtProtocol.Text = "";
+      txtAddress.Text = "";
+      txtCommand.Text = "";
+      txtRepeatGap.Text = "";
+      txtToggle.Text = "";
+      txtRawData.Text = value;
+      lblMessageError.Text = ex.Message;
+      lblMessageError.Visible = true;
+    }
 
     protected override void SetVisibleCore(bool value)
     {
@@ -37,9 +73,9 @@ namespace ArsiParsi
         return;
       }
 
-      txtRawData.AppendText(value);
-      txtRawData.SelectionStart = txtRawData.Text.Length;
-      txtRawData.ScrollToCaret();
+      txtRawDataLog.AppendText(value);
+      txtRawDataLog.SelectionStart = txtRawDataLog.Text.Length;
+      txtRawDataLog.ScrollToCaret();
     }
 
     private void _receiver_ConnectedChanged()

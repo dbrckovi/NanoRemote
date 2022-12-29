@@ -37,13 +37,27 @@
       this.cmbReceiverPort = new System.Windows.Forms.ComboBox();
       this.lblPort = new System.Windows.Forms.Label();
       this.tabControl1 = new System.Windows.Forms.TabControl();
+      this.tabPageLastMessage = new System.Windows.Forms.TabPage();
+      this.txtRawData = new System.Windows.Forms.TextBox();
+      this.lblRawData = new System.Windows.Forms.Label();
+      this.txtRepeatGap = new System.Windows.Forms.TextBox();
+      this.lblRepeatGap = new System.Windows.Forms.Label();
+      this.txtToggle = new System.Windows.Forms.TextBox();
+      this.lblToggle = new System.Windows.Forms.Label();
+      this.txtCommand = new System.Windows.Forms.TextBox();
+      this.lblCommand = new System.Windows.Forms.Label();
+      this.txtAddress = new System.Windows.Forms.TextBox();
+      this.lblAddress = new System.Windows.Forms.Label();
+      this.txtProtocol = new System.Windows.Forms.TextBox();
+      this.lblProtocol = new System.Windows.Forms.Label();
       this.tabPageRawData = new System.Windows.Forms.TabPage();
-      this.txtRawData = new System.Windows.Forms.RichTextBox();
-      this.tabPage2 = new System.Windows.Forms.TabPage();
+      this.txtRawDataLog = new System.Windows.Forms.RichTextBox();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.lblMessageError = new System.Windows.Forms.Label();
       this.contextTray.SuspendLayout();
       this.grpReceiver.SuspendLayout();
       this.tabControl1.SuspendLayout();
+      this.tabPageLastMessage.SuspendLayout();
       this.tabPageRawData.SuspendLayout();
       this.panel1.SuspendLayout();
       this.SuspendLayout();
@@ -112,48 +126,163 @@
       // 
       // tabControl1
       // 
+      this.tabControl1.Controls.Add(this.tabPageLastMessage);
       this.tabControl1.Controls.Add(this.tabPageRawData);
-      this.tabControl1.Controls.Add(this.tabPage2);
       this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.tabControl1.Location = new System.Drawing.Point(0, 48);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
-      this.tabControl1.Size = new System.Drawing.Size(594, 456);
+      this.tabControl1.Size = new System.Drawing.Size(530, 456);
       this.tabControl1.TabIndex = 2;
+      // 
+      // tabPageLastMessage
+      // 
+      this.tabPageLastMessage.Controls.Add(this.lblMessageError);
+      this.tabPageLastMessage.Controls.Add(this.txtRawData);
+      this.tabPageLastMessage.Controls.Add(this.lblRawData);
+      this.tabPageLastMessage.Controls.Add(this.txtRepeatGap);
+      this.tabPageLastMessage.Controls.Add(this.lblRepeatGap);
+      this.tabPageLastMessage.Controls.Add(this.txtToggle);
+      this.tabPageLastMessage.Controls.Add(this.lblToggle);
+      this.tabPageLastMessage.Controls.Add(this.txtCommand);
+      this.tabPageLastMessage.Controls.Add(this.lblCommand);
+      this.tabPageLastMessage.Controls.Add(this.txtAddress);
+      this.tabPageLastMessage.Controls.Add(this.lblAddress);
+      this.tabPageLastMessage.Controls.Add(this.txtProtocol);
+      this.tabPageLastMessage.Controls.Add(this.lblProtocol);
+      this.tabPageLastMessage.Location = new System.Drawing.Point(4, 24);
+      this.tabPageLastMessage.Name = "tabPageLastMessage";
+      this.tabPageLastMessage.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPageLastMessage.Size = new System.Drawing.Size(522, 428);
+      this.tabPageLastMessage.TabIndex = 1;
+      this.tabPageLastMessage.Text = "Last message";
+      this.tabPageLastMessage.UseVisualStyleBackColor = true;
+      // 
+      // txtRawData
+      // 
+      this.txtRawData.Location = new System.Drawing.Point(256, 72);
+      this.txtRawData.Name = "txtRawData";
+      this.txtRawData.ReadOnly = true;
+      this.txtRawData.Size = new System.Drawing.Size(224, 23);
+      this.txtRawData.TabIndex = 11;
+      // 
+      // lblRawData
+      // 
+      this.lblRawData.AutoSize = true;
+      this.lblRawData.Location = new System.Drawing.Point(176, 72);
+      this.lblRawData.Name = "lblRawData";
+      this.lblRawData.Size = new System.Drawing.Size(55, 15);
+      this.lblRawData.TabIndex = 10;
+      this.lblRawData.Text = "Raw data";
+      // 
+      // txtRepeatGap
+      // 
+      this.txtRepeatGap.Location = new System.Drawing.Point(424, 40);
+      this.txtRepeatGap.Name = "txtRepeatGap";
+      this.txtRepeatGap.ReadOnly = true;
+      this.txtRepeatGap.Size = new System.Drawing.Size(56, 23);
+      this.txtRepeatGap.TabIndex = 9;
+      // 
+      // lblRepeatGap
+      // 
+      this.lblRepeatGap.AutoSize = true;
+      this.lblRepeatGap.Location = new System.Drawing.Point(344, 40);
+      this.lblRepeatGap.Name = "lblRepeatGap";
+      this.lblRepeatGap.Size = new System.Drawing.Size(66, 15);
+      this.lblRepeatGap.TabIndex = 8;
+      this.lblRepeatGap.Text = "Repeat gap";
+      // 
+      // txtToggle
+      // 
+      this.txtToggle.Location = new System.Drawing.Point(88, 72);
+      this.txtToggle.Name = "txtToggle";
+      this.txtToggle.ReadOnly = true;
+      this.txtToggle.Size = new System.Drawing.Size(80, 23);
+      this.txtToggle.TabIndex = 7;
+      // 
+      // lblToggle
+      // 
+      this.lblToggle.AutoSize = true;
+      this.lblToggle.Location = new System.Drawing.Point(8, 72);
+      this.lblToggle.Name = "lblToggle";
+      this.lblToggle.Size = new System.Drawing.Size(42, 15);
+      this.lblToggle.TabIndex = 6;
+      this.lblToggle.Text = "Toggle";
+      // 
+      // txtCommand
+      // 
+      this.txtCommand.Location = new System.Drawing.Point(256, 40);
+      this.txtCommand.Name = "txtCommand";
+      this.txtCommand.ReadOnly = true;
+      this.txtCommand.Size = new System.Drawing.Size(80, 23);
+      this.txtCommand.TabIndex = 5;
+      // 
+      // lblCommand
+      // 
+      this.lblCommand.AutoSize = true;
+      this.lblCommand.Location = new System.Drawing.Point(176, 40);
+      this.lblCommand.Name = "lblCommand";
+      this.lblCommand.Size = new System.Drawing.Size(64, 15);
+      this.lblCommand.TabIndex = 4;
+      this.lblCommand.Text = "Command";
+      // 
+      // txtAddress
+      // 
+      this.txtAddress.Location = new System.Drawing.Point(88, 40);
+      this.txtAddress.Name = "txtAddress";
+      this.txtAddress.ReadOnly = true;
+      this.txtAddress.Size = new System.Drawing.Size(80, 23);
+      this.txtAddress.TabIndex = 3;
+      // 
+      // lblAddress
+      // 
+      this.lblAddress.AutoSize = true;
+      this.lblAddress.Location = new System.Drawing.Point(8, 40);
+      this.lblAddress.Name = "lblAddress";
+      this.lblAddress.Size = new System.Drawing.Size(49, 15);
+      this.lblAddress.TabIndex = 2;
+      this.lblAddress.Text = "Address";
+      // 
+      // txtProtocol
+      // 
+      this.txtProtocol.Location = new System.Drawing.Point(88, 8);
+      this.txtProtocol.Name = "txtProtocol";
+      this.txtProtocol.ReadOnly = true;
+      this.txtProtocol.Size = new System.Drawing.Size(80, 23);
+      this.txtProtocol.TabIndex = 1;
+      // 
+      // lblProtocol
+      // 
+      this.lblProtocol.AutoSize = true;
+      this.lblProtocol.Location = new System.Drawing.Point(8, 8);
+      this.lblProtocol.Name = "lblProtocol";
+      this.lblProtocol.Size = new System.Drawing.Size(52, 15);
+      this.lblProtocol.TabIndex = 0;
+      this.lblProtocol.Text = "Protocol";
       // 
       // tabPageRawData
       // 
-      this.tabPageRawData.Controls.Add(this.txtRawData);
+      this.tabPageRawData.Controls.Add(this.txtRawDataLog);
       this.tabPageRawData.Location = new System.Drawing.Point(4, 24);
       this.tabPageRawData.Name = "tabPageRawData";
       this.tabPageRawData.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageRawData.Size = new System.Drawing.Size(586, 428);
+      this.tabPageRawData.Size = new System.Drawing.Size(522, 428);
       this.tabPageRawData.TabIndex = 0;
       this.tabPageRawData.Text = "Raw data";
       this.tabPageRawData.UseVisualStyleBackColor = true;
       // 
-      // txtRawData
+      // txtRawDataLog
       // 
-      this.txtRawData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.txtRawData.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.txtRawData.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-      this.txtRawData.Location = new System.Drawing.Point(3, 3);
-      this.txtRawData.Name = "txtRawData";
-      this.txtRawData.ReadOnly = true;
-      this.txtRawData.Size = new System.Drawing.Size(580, 422);
-      this.txtRawData.TabIndex = 0;
-      this.txtRawData.Text = "";
-      this.txtRawData.WordWrap = false;
-      // 
-      // tabPage2
-      // 
-      this.tabPage2.Location = new System.Drawing.Point(4, 24);
-      this.tabPage2.Name = "tabPage2";
-      this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage2.Size = new System.Drawing.Size(464, 244);
-      this.tabPage2.TabIndex = 1;
-      this.tabPage2.Text = "tabPage2";
-      this.tabPage2.UseVisualStyleBackColor = true;
+      this.txtRawDataLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.txtRawDataLog.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.txtRawDataLog.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+      this.txtRawDataLog.Location = new System.Drawing.Point(3, 3);
+      this.txtRawDataLog.Name = "txtRawDataLog";
+      this.txtRawDataLog.ReadOnly = true;
+      this.txtRawDataLog.Size = new System.Drawing.Size(516, 422);
+      this.txtRawDataLog.TabIndex = 0;
+      this.txtRawDataLog.Text = "";
+      this.txtRawDataLog.WordWrap = false;
       // 
       // panel1
       // 
@@ -161,14 +290,24 @@
       this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
       this.panel1.Location = new System.Drawing.Point(0, 0);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(594, 48);
+      this.panel1.Size = new System.Drawing.Size(530, 48);
       this.panel1.TabIndex = 3;
+      // 
+      // lblMessageError
+      // 
+      this.lblMessageError.ForeColor = System.Drawing.Color.Red;
+      this.lblMessageError.Location = new System.Drawing.Point(88, 104);
+      this.lblMessageError.Name = "lblMessageError";
+      this.lblMessageError.Size = new System.Drawing.Size(392, 72);
+      this.lblMessageError.TabIndex = 12;
+      this.lblMessageError.Text = "Address";
+      this.lblMessageError.Visible = false;
       // 
       // frmMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(594, 504);
+      this.ClientSize = new System.Drawing.Size(530, 504);
       this.Controls.Add(this.tabControl1);
       this.Controls.Add(this.panel1);
       this.Name = "frmMain";
@@ -180,6 +319,8 @@
       this.grpReceiver.ResumeLayout(false);
       this.grpReceiver.PerformLayout();
       this.tabControl1.ResumeLayout(false);
+      this.tabPageLastMessage.ResumeLayout(false);
+      this.tabPageLastMessage.PerformLayout();
       this.tabPageRawData.ResumeLayout(false);
       this.panel1.ResumeLayout(false);
       this.ResumeLayout(false);
@@ -197,8 +338,21 @@
     private Label lblPort;
     private TabControl tabControl1;
     private TabPage tabPageRawData;
-    private RichTextBox txtRawData;
-    private TabPage tabPage2;
+    private RichTextBox txtRawDataLog;
+    private TabPage tabPageLastMessage;
     private Panel panel1;
+    private TextBox txtRawData;
+    private Label lblRawData;
+    private TextBox txtRepeatGap;
+    private Label lblRepeatGap;
+    private TextBox txtToggle;
+    private Label lblToggle;
+    private TextBox txtCommand;
+    private Label lblCommand;
+    private TextBox txtAddress;
+    private Label lblAddress;
+    private TextBox txtProtocol;
+    private Label lblProtocol;
+    private Label lblMessageError;
   }
 }

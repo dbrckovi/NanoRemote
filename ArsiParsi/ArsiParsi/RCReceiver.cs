@@ -31,6 +31,8 @@ namespace ArsiParsi
 
     public event Delegates.VoidDelegate ConnectedChanged;
     public event Delegates.StringDelegate RawDataReceived;
+    public event Delegates.ExceptionStringDelegate ReceiveError;
+    public event Delegates.RCMessageDelegate MessageReceived;
 
     public RCReceiver()
     {
@@ -101,10 +103,20 @@ namespace ArsiParsi
         {
           sb.AppendLine(line);
         }
-        data = sb.ToString();
+        data = sb.ToString().Replace(Environment.NewLine, " ");
       }
-
+      
       RawDataReceived?.Invoke(data);
+
+      try
+      {
+        RCMessage message = new RCMessage(data);
+        MessageReceived?.Invoke(message);
+      }
+      catch (Exception ex)
+      {
+        ReceiveError?.Invoke(ex, data);
+      }
     }
 
     private void _port_DataReceived(object sender, SerialDataReceivedEventArgs e)

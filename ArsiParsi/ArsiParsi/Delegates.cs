@@ -10,5 +10,7 @@ namespace ArsiParsi
   {
     public delegate void VoidDelegate();
     public delegate void StringDelegate(string value);
+    public delegate void ExceptionStringDelegate(Exception ex, string value);
+    public delegate void RCMessageDelegate(RCMessage message);
   }
 }
