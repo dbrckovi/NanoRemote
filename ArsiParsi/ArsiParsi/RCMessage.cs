@@ -78,5 +78,16 @@ namespace ArsiParsi
       value = value.Replace("us", "");
       return int.Parse(value);
     }
+
+    public override string ToString()
+    {
+      StringBuilder sb = new StringBuilder();
+      sb.Append($"{Protocol}-{Address}-{Command} ");
+
+      if (Toggle) sb.Append("T");
+      if (RepeatGapMicroSeconds > 0) sb.Append("R");
+
+      return sb.ToString();
+    }
   }
 }

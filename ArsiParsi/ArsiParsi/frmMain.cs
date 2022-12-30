@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.IO.Ports;
 using System.Text;
 using System.Windows.Forms;
@@ -12,6 +13,26 @@ namespace ArsiParsi
     bool _allowVisible = false;
     bool _allowClose = false;
     RCMessage _lastMessage;
+
+    /// <summary>
+    /// Gets currently selected action in <see cref="dataActions"/>
+    /// </summary>
+    private RCAction SelectedActionInGrid
+    {
+      get
+      {
+        RCAction ret = null;
+
+        if (dataActions.SelectedRows.Count > 0)
+        {
+          DataRowView rowView = (DataRowView)dataActions.SelectedRows[0].DataBoundItem;
+          DataRow row = rowView.Row;
+          ret = (RCAction)row["ActionObject"];
+        }
+
+        return ret;
+      }
+    }
 
     public frmMain()
     {
@@ -51,38 +72,38 @@ namespace ArsiParsi
       txtCommand.Text = message.Command.ToString();
       txtRepeatGap.Text = message.RepeatGapMicroSeconds > 0 ? message.RepeatGapMicroSeconds.ToString() : "";
       txtToggle.Text = message.Toggle ? "YES" : "NO";
-      txtRawData.Text = message.RawData;
       lblMessageError.Visible = false;
       _lastMessage = message;
       btnNewActionFromMessage.Enabled = true;
 
-      StringBuilder sb = new StringBuilder();
       bool actionsFound = false;
+
+      AddLogLine($"RC message received: {message.ToString()}");
 
       foreach (RCAction action in Config.Instance.Actions)
       {
         if (action.MatchesMessage(message))
         {
           actionsFound = true;
-          if (chkTestMode.Checked) sb.AppendLine($"{action.Name} - Skipped (test mode)");
-          else if (action.IsInDelayPeriod) sb.AppendLine($"{action.Name} - Skipped (within execution delay)");
+          if (chkTestMode.Checked) AddLogLine($" - Skipped action '{action.Name}' because test mode is active");
+          else if (action.IsInDelayPeriod) AddLogLine($" - Skipped action '{action.Name}' because this action was executed in the last {action.DelayAfterExecution}ms");
           else
           {
             try
             {
               action.ExecuteAction();
-              sb.AppendLine($"{action.Name} - Executed");
+              AddLogLine($" - Executed action '{action.Name}'");
             }
             catch (Exception ex)
             {
-              sb.AppendLine($"{action.Name} - Error: {ex.Message}");
+              AddLogLine($" - Error executing action '{action.Name}': {ex.Message}");
             }
           }
         }
       }
-      if (!actionsFound) sb.AppendLine("No actions match this message");
-
-      txtMessageActions.Text = sb.ToString();
+      
+      if (!actionsFound) AddLogLine(" - No actions match this message");
+      AddLogLine("");
     }
 
     private void _receiver_ReceiveError(Exception ex, string value)
@@ -98,10 +119,12 @@ namespace ArsiParsi
       txtCommand.Text = "";
       txtRepeatGap.Text = "";
       txtToggle.Text = "";
-      txtRawData.Text = value;
       lblMessageError.Text = ex.Message;
       lblMessageError.Visible = true;
-      txtMessageActions.Text = "";
+
+      AddLogLine("Message could not be parsed (probably noise or unrecognized RC format)");
+      AddLogLine($" - {ex.Message}");
+      AddLogLine("");
     }
 
     protected override void SetVisibleCore(bool value)
@@ -144,11 +167,9 @@ namespace ArsiParsi
 
     private void EditSelectedAction()
     {
-      RCAction selectedAction = dataActions.DataSource != null && dataActions.CurrentRow != null ? (RCAction)dataActions.CurrentRow.DataBoundItem : null;
-
-      if (selectedAction != null)
+      if (SelectedActionInGrid != null)
       {
-        frmEditAction actionEditor = new frmEditAction(selectedAction);
+        frmEditAction actionEditor = new frmEditAction(SelectedActionInGrid);
         DialogResult result = actionEditor.ShowDialog(this);
         if (result == DialogResult.OK)
         {
@@ -160,14 +181,20 @@ namespace ArsiParsi
 
     private void DeleteSelectedAction()
     {
-      RCAction selectedAction = dataActions.DataSource != null && dataActions.CurrentRow != null ? (RCAction)dataActions.CurrentRow.DataBoundItem : null;
-      if (selectedAction != null)
+      if (SelectedActionInGrid != null)
       {
-        dataActions.DataSource = null;
-        Config.Instance.Actions.Remove(selectedAction);
+        Config.Instance.Actions.Remove(SelectedActionInGrid);
         Config.Instance.Save();
         RefreshGUI();
       }
+    }
+
+    private void AddLogLine(string message)
+    {
+      message = $"{message}{Environment.NewLine}";
+      txtLog.AppendText(message);
+      txtLog.SelectionStart = txtLog.Text.Length;
+      txtLog.ScrollToCaret();
     }
 
     private void RefreshGUI()
@@ -185,17 +212,47 @@ namespace ArsiParsi
         btnReceiverConnectToggle.Text = "Connect";
       }
 
-      RCAction selectedAction = dataActions.DataSource != null && dataActions.CurrentRow != null && dataActions.CurrentRow.DataBoundItem != null ? (RCAction)dataActions.CurrentRow.DataBoundItem : null;
-      dataActions.DataSource = null;
-      dataActions.DataSource = Config.Instance.Actions;
-      if (selectedAction != null)
+      RefreshActionGrid();
+    }
+
+    private void RefreshActionGrid()
+    {
+      //This used to be bound directly to Config.Instance.Actions but it kept throwing weird indexing errors.
+      //Instead of dancing around M$ trying to be smart, I'm doing it manually like Crom intended.
+
+      RCAction oldSelectedAction = SelectedActionInGrid;
+
+      DataTable table = new DataTable();
+      table.Columns.Add("Name", typeof(string));
+      table.Columns.Add("Protocol", typeof(string));
+      table.Columns.Add("Address", typeof(string));
+      table.Columns.Add("Command", typeof(string));
+      table.Columns.Add("Type", typeof(string));
+      table.Columns.Add("ActionObject", typeof(RCAction));
+
+      foreach (RCAction action in Config.Instance.Actions)
       {
-        for (int x = 0; x < dataActions.Rows.Count; x++)
+        DataRow row = table.NewRow();
+        row["Name"] = action.Name;
+        row["Protocol"] = action.Protocol;
+        row["Address"] = action.Address.ToString();
+        row["Command"] = action.Command.ToString();
+        row["Type"] = action.ActionType.ToString();
+        row["ActionObject"] = action;
+        table.Rows.Add(row);
+      }
+
+      dataActions.DataSource = table;
+
+      if (oldSelectedAction != null)
+      {
+        foreach(DataGridViewRow gridrowView in dataActions.Rows)
         {
-          RCAction rowAction = (RCAction)dataActions.Rows[x].DataBoundItem;
-          if (rowAction == selectedAction)
+          DataRowView rowView = (DataRowView)gridrowView.DataBoundItem;
+          RCAction rowAction = (RCAction)rowView.Row["ActionObject"];
+          if (rowAction == oldSelectedAction)
           {
-            dataActions.Rows[x].Selected = true;
+            gridrowView.Selected = true;
             break;
           }
         }
@@ -210,9 +267,7 @@ namespace ArsiParsi
         return;
       }
 
-      txtRawDataLog.AppendText($"{value}{Environment.NewLine}");
-      txtRawDataLog.SelectionStart = txtRawDataLog.Text.Length;
-      txtRawDataLog.ScrollToCaret();
+      if (chkLogRawData.Checked) AddLogLine($"Raw data received:{Environment.NewLine}{value}{Environment.NewLine}");
     }
 
     private void _receiver_ConnectedChanged()
@@ -367,6 +422,11 @@ namespace ArsiParsi
       {
         MessageBox.Show(ex.Message);
       }
+    }
+
+    private void btnClearLog_Click(object sender, EventArgs e)
+    {
+      txtLog.Text = "";
     }
   }
 }

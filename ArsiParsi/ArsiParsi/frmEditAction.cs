@@ -109,7 +109,7 @@ namespace ArsiParsi
     {
       try
       {
-        if (string.IsNullOrEmpty(_action.Name)) throw new Exception("Name is not specified");
+        if (string.IsNullOrEmpty(txtName.Text)) throw new Exception("Name is not specified");
 
         _action.Protocol = chkProtocol.Checked ? txtProtocol.Text : null;
         _action.Address = chkAddress.Checked ? Convert.ToInt32(numAddress.Value) : null;
