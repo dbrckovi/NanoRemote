@@ -45,6 +45,8 @@
       this.radRepeatTrue = new System.Windows.Forms.RadioButton();
       this.grpTrigger = new System.Windows.Forms.GroupBox();
       this.grpAction = new System.Windows.Forms.GroupBox();
+      this.numDelayAfterExecution = new System.Windows.Forms.NumericUpDown();
+      this.lblDelayAfterExecution = new System.Windows.Forms.Label();
       this.txtName = new System.Windows.Forms.TextBox();
       this.lblName = new System.Windows.Forms.Label();
       this.pnlActionEditorContainer = new System.Windows.Forms.Panel();
@@ -58,6 +60,7 @@
       this.grpRepeat.SuspendLayout();
       this.grpTrigger.SuspendLayout();
       this.grpAction.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.numDelayAfterExecution)).BeginInit();
       this.SuspendLayout();
       // 
       // txtProtocol
@@ -240,20 +243,43 @@
       this.grpTrigger.Size = new System.Drawing.Size(504, 152);
       this.grpTrigger.TabIndex = 15;
       this.grpTrigger.TabStop = false;
-      this.grpTrigger.Text = "Message trigger";
+      this.grpTrigger.Text = "Trigger";
       // 
       // grpAction
       // 
+      this.grpAction.Controls.Add(this.numDelayAfterExecution);
+      this.grpAction.Controls.Add(this.lblDelayAfterExecution);
       this.grpAction.Controls.Add(this.txtName);
       this.grpAction.Controls.Add(this.lblName);
       this.grpAction.Controls.Add(this.pnlActionEditorContainer);
       this.grpAction.Controls.Add(this.cmbActionType);
       this.grpAction.Location = new System.Drawing.Point(8, 168);
       this.grpAction.Name = "grpAction";
-      this.grpAction.Size = new System.Drawing.Size(504, 200);
+      this.grpAction.Size = new System.Drawing.Size(728, 200);
       this.grpAction.TabIndex = 16;
       this.grpAction.TabStop = false;
       this.grpAction.Text = "Action";
+      // 
+      // numDelayAfterExecution
+      // 
+      this.numDelayAfterExecution.Location = new System.Drawing.Point(648, 24);
+      this.numDelayAfterExecution.Maximum = new decimal(new int[] {
+            60000,
+            0,
+            0,
+            0});
+      this.numDelayAfterExecution.Name = "numDelayAfterExecution";
+      this.numDelayAfterExecution.Size = new System.Drawing.Size(72, 23);
+      this.numDelayAfterExecution.TabIndex = 7;
+      // 
+      // lblDelayAfterExecution
+      // 
+      this.lblDelayAfterExecution.AutoSize = true;
+      this.lblDelayAfterExecution.Location = new System.Drawing.Point(504, 24);
+      this.lblDelayAfterExecution.Name = "lblDelayAfterExecution";
+      this.lblDelayAfterExecution.Size = new System.Drawing.Size(145, 15);
+      this.lblDelayAfterExecution.TabIndex = 4;
+      this.lblDelayAfterExecution.Text = "Delay after execution (ms)";
       // 
       // txtName
       // 
@@ -275,7 +301,7 @@
       // 
       this.pnlActionEditorContainer.Location = new System.Drawing.Point(8, 56);
       this.pnlActionEditorContainer.Name = "pnlActionEditorContainer";
-      this.pnlActionEditorContainer.Size = new System.Drawing.Size(488, 136);
+      this.pnlActionEditorContainer.Size = new System.Drawing.Size(712, 136);
       this.pnlActionEditorContainer.TabIndex = 1;
       // 
       // cmbActionType
@@ -312,7 +338,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(524, 435);
+      this.ClientSize = new System.Drawing.Size(822, 435);
       this.Controls.Add(this.btnCancel);
       this.Controls.Add(this.btnSave);
       this.Controls.Add(this.grpAction);
@@ -332,6 +358,7 @@
       this.grpTrigger.ResumeLayout(false);
       this.grpAction.ResumeLayout(false);
       this.grpAction.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.numDelayAfterExecution)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -361,5 +388,7 @@
     private Panel pnlActionEditorContainer;
     private TextBox txtName;
     private Label lblName;
+    private NumericUpDown numDelayAfterExecution;
+    private Label lblDelayAfterExecution;
   }
 }

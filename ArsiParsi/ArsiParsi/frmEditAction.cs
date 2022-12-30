@@ -49,6 +49,7 @@ namespace ArsiParsi
 
       cmbActionType.SelectedItem = _action.ActionType;
       txtName.Text = _action.Name;
+      numDelayAfterExecution.Value = _action.DelayAfterExecution;
 
       if (pnlActionEditorContainer.Controls.Count > 0)
       {
@@ -122,6 +123,7 @@ namespace ArsiParsi
 
         _action.ActionType = (RCActionType)cmbActionType.SelectedItem;
         _action.Name = txtName.Text;
+        _action.DelayAfterExecution = Convert.ToInt32(numDelayAfterExecution.Value);
 
         if (pnlActionEditorContainer.Controls.Count > 0 && pnlActionEditorContainer.Controls[0] is IActionParameters)
         {

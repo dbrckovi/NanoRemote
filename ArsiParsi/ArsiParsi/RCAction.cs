@@ -9,6 +9,8 @@ namespace ArsiParsi
   [Serializable]
   public class RCAction
   {
+    private DateTime? _lastExecuted = null;
+
     public string Name { get; set; }
 
     //filter
@@ -21,6 +23,15 @@ namespace ArsiParsi
     //action
     public RCActionType ActionType { get; set; } = RCActionType.ConsoleCommand;
     public string ActionParameters { get; set; }
+    public int DelayAfterExecution { get; set; } = 0;
+
+    public bool IsInDelayPeriod
+    {
+      get
+      {
+        return _lastExecuted.HasValue && (DateTime.Now - _lastExecuted.Value).TotalMilliseconds < DelayAfterExecution;
+      }
+    }
 
     public bool MatchesMessage(RCMessage message)
     {
@@ -37,6 +48,8 @@ namespace ArsiParsi
 
     public void ExecuteAction()
     {
+      _lastExecuted = DateTime.Now;
+
       switch (ActionType)
       {
         case RCActionType.ConsoleCommand:

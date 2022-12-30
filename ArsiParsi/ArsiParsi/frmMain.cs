@@ -65,6 +65,7 @@ namespace ArsiParsi
         {
           actionsFound = true;
           if (chkTestMode.Checked) sb.AppendLine($"{action.Name} - Skipped (test mode)");
+          else if (action.IsInDelayPeriod) sb.AppendLine($"{action.Name} - Skipped (within execution delay)");
           else
           {
             try
