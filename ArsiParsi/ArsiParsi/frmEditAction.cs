@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.Devices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -44,7 +45,8 @@ namespace ArsiParsi
       else if (_action.Toggle.Value) radToggleTrue.Checked = true;
       else radToggleFalse.Checked = true;
 
-      if (_action.Repeat.HasValue && _action.Repeat.Value) radRepeatTrue.Checked = true;
+      if (!_action.Repeat.HasValue) radRepeatIgnore.Checked = true;
+      else if (_action.Repeat.Value) radRepeatTrue.Checked = true;
       else radRepeatFalse.Checked = true;
 
       cmbActionType.SelectedItem = _action.ActionType;
@@ -89,6 +91,16 @@ namespace ArsiParsi
         case RCActionType.ConsoleCommand:
           {
             pnlActionEditorContainer.Controls.Add(new ConsoleCommandEditor());
+            break;
+          }
+        case RCActionType.SendKeys:
+          {
+            pnlActionEditorContainer.Controls.Add(new SendKeysEditor());
+            break;
+          }
+        case RCActionType.MouseMove:
+          {
+            pnlActionEditorContainer.Controls.Add(new MoveMouseEditor());
             break;
           }
       }

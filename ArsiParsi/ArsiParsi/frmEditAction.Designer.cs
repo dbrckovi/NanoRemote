@@ -218,9 +218,9 @@
       this.radRepeatFalse.AutoSize = true;
       this.radRepeatFalse.Location = new System.Drawing.Point(8, 56);
       this.radRepeatFalse.Name = "radRepeatFalse";
-      this.radRepeatFalse.Size = new System.Drawing.Size(106, 19);
+      this.radRepeatFalse.Size = new System.Drawing.Size(90, 19);
       this.radRepeatFalse.TabIndex = 12;
-      this.radRepeatFalse.Text = "Only when OFF";
+      this.radRepeatFalse.Text = "Only on first";
       this.radRepeatFalse.UseVisualStyleBackColor = true;
       // 
       // radRepeatTrue
@@ -230,7 +230,7 @@
       this.radRepeatTrue.Name = "radRepeatTrue";
       this.radRepeatTrue.Size = new System.Drawing.Size(103, 19);
       this.radRepeatTrue.TabIndex = 13;
-      this.radRepeatTrue.Text = "Only when ON";
+      this.radRepeatTrue.Text = "Only on repeat";
       this.radRepeatTrue.UseVisualStyleBackColor = true;
       // 
       // grpTrigger

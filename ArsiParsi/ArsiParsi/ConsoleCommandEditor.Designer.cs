@@ -40,7 +40,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.txtCommand.Location = new System.Drawing.Point(80, 8);
       this.txtCommand.Name = "txtCommand";
-      this.txtCommand.Size = new System.Drawing.Size(189, 23);
+      this.txtCommand.Size = new System.Drawing.Size(192, 23);
       this.txtCommand.TabIndex = 0;
       // 
       // label1
@@ -55,7 +55,7 @@
       // btnTest
       // 
       this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btnTest.Location = new System.Drawing.Point(277, 8);
+      this.btnTest.Location = new System.Drawing.Point(280, 8);
       this.btnTest.Name = "btnTest";
       this.btnTest.Size = new System.Drawing.Size(48, 24);
       this.btnTest.TabIndex = 2;

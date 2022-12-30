@@ -39,6 +39,12 @@
       this.lblPort = new System.Windows.Forms.Label();
       this.txtLog = new System.Windows.Forms.RichTextBox();
       this.dataActions = new System.Windows.Forms.DataGridView();
+      this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colProtocol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colActionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colActionObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.pnlActionControls = new System.Windows.Forms.Panel();
       this.btnDeleteAction = new System.Windows.Forms.Button();
       this.btnEditAction = new System.Windows.Forms.Button();
@@ -64,12 +70,6 @@
       this.chkLogRawData = new System.Windows.Forms.CheckBox();
       this.splitContainer1 = new System.Windows.Forms.SplitContainer();
       this.grpActions = new System.Windows.Forms.GroupBox();
-      this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.colProtocol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.colAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.colCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.colActionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.colActionObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.contextTray.SuspendLayout();
       this.grpReceiver.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dataActions)).BeginInit();
@@ -200,6 +200,58 @@
       this.dataActions.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataActions_CellDoubleClick);
       this.dataActions.SelectionChanged += new System.EventHandler(this.dataActions_SelectionChanged);
       this.dataActions.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataActions_KeyUp);
+      // 
+      // colName
+      // 
+      this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+      this.colName.DataPropertyName = "Name";
+      this.colName.HeaderText = "Name";
+      this.colName.MinimumWidth = 100;
+      this.colName.Name = "colName";
+      this.colName.ReadOnly = true;
+      // 
+      // colProtocol
+      // 
+      this.colProtocol.DataPropertyName = "Protocol";
+      this.colProtocol.HeaderText = "Protocol";
+      this.colProtocol.MinimumWidth = 60;
+      this.colProtocol.Name = "colProtocol";
+      this.colProtocol.ReadOnly = true;
+      // 
+      // colAddress
+      // 
+      this.colAddress.DataPropertyName = "Address";
+      this.colAddress.FillWeight = 66.14645F;
+      this.colAddress.HeaderText = "Address";
+      this.colAddress.MinimumWidth = 60;
+      this.colAddress.Name = "colAddress";
+      this.colAddress.ReadOnly = true;
+      // 
+      // colCommand
+      // 
+      this.colCommand.DataPropertyName = "Command";
+      this.colCommand.FillWeight = 66.14645F;
+      this.colCommand.HeaderText = "Command";
+      this.colCommand.MinimumWidth = 70;
+      this.colCommand.Name = "colCommand";
+      this.colCommand.ReadOnly = true;
+      // 
+      // colActionType
+      // 
+      this.colActionType.DataPropertyName = "Type";
+      this.colActionType.FillWeight = 99.21969F;
+      this.colActionType.HeaderText = "Type";
+      this.colActionType.MinimumWidth = 120;
+      this.colActionType.Name = "colActionType";
+      this.colActionType.ReadOnly = true;
+      // 
+      // colActionObject
+      // 
+      this.colActionObject.DataPropertyName = "ActionObject";
+      this.colActionObject.HeaderText = "ActionObject";
+      this.colActionObject.Name = "colActionObject";
+      this.colActionObject.ReadOnly = true;
+      this.colActionObject.Visible = false;
       // 
       // pnlActionControls
       // 
@@ -468,58 +520,6 @@
       this.grpActions.TabIndex = 7;
       this.grpActions.TabStop = false;
       this.grpActions.Text = "Actions";
-      // 
-      // colName
-      // 
-      this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-      this.colName.DataPropertyName = "Name";
-      this.colName.HeaderText = "Name";
-      this.colName.MinimumWidth = 100;
-      this.colName.Name = "colName";
-      this.colName.ReadOnly = true;
-      // 
-      // colProtocol
-      // 
-      this.colProtocol.DataPropertyName = "Protocol";
-      this.colProtocol.HeaderText = "Protocol";
-      this.colProtocol.MinimumWidth = 60;
-      this.colProtocol.Name = "colProtocol";
-      this.colProtocol.ReadOnly = true;
-      // 
-      // colAddress
-      // 
-      this.colAddress.DataPropertyName = "Address";
-      this.colAddress.FillWeight = 66.14645F;
-      this.colAddress.HeaderText = "Address";
-      this.colAddress.MinimumWidth = 60;
-      this.colAddress.Name = "colAddress";
-      this.colAddress.ReadOnly = true;
-      // 
-      // colCommand
-      // 
-      this.colCommand.DataPropertyName = "Command";
-      this.colCommand.FillWeight = 66.14645F;
-      this.colCommand.HeaderText = "Command";
-      this.colCommand.MinimumWidth = 70;
-      this.colCommand.Name = "colCommand";
-      this.colCommand.ReadOnly = true;
-      // 
-      // colActionType
-      // 
-      this.colActionType.DataPropertyName = "Type";
-      this.colActionType.FillWeight = 99.21969F;
-      this.colActionType.HeaderText = "Type";
-      this.colActionType.MinimumWidth = 120;
-      this.colActionType.Name = "colActionType";
-      this.colActionType.ReadOnly = true;
-      // 
-      // colActionObject
-      // 
-      this.colActionObject.DataPropertyName = "ActionObject";
-      this.colActionObject.HeaderText = "ActionObject";
-      this.colActionObject.Name = "colActionObject";
-      this.colActionObject.ReadOnly = true;
-      this.colActionObject.Visible = false;
       // 
       // frmMain
       // 

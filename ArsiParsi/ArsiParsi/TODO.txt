@@ -1,0 +1,7 @@
+﻿Create setup
+
+Create paths in setup
+	Program Files\ArsiParsi
+	ProgramData\ArsiParsi
+
+Implement mouse accelleration
