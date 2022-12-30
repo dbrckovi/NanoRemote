@@ -38,6 +38,10 @@
       this.lblPort = new System.Windows.Forms.Label();
       this.tabControl1 = new System.Windows.Forms.TabControl();
       this.tabPageLastMessage = new System.Windows.Forms.TabPage();
+      this.txtMessageActions = new System.Windows.Forms.RichTextBox();
+      this.lblExecutedActions = new System.Windows.Forms.Label();
+      this.btnNewActionFromMessage = new System.Windows.Forms.Button();
+      this.lblMessageError = new System.Windows.Forms.Label();
       this.txtRawData = new System.Windows.Forms.TextBox();
       this.lblRawData = new System.Windows.Forms.Label();
       this.txtRepeatGap = new System.Windows.Forms.TextBox();
@@ -52,13 +56,30 @@
       this.lblProtocol = new System.Windows.Forms.Label();
       this.tabPageRawData = new System.Windows.Forms.TabPage();
       this.txtRawDataLog = new System.Windows.Forms.RichTextBox();
+      this.tabPageActions = new System.Windows.Forms.TabPage();
+      this.dataActions = new System.Windows.Forms.DataGridView();
+      this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colProtocol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colActionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colActionParameters = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colToggle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.colRepeat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.pnlActionControls = new System.Windows.Forms.Panel();
+      this.btnDeleteAction = new System.Windows.Forms.Button();
+      this.btnEditAction = new System.Windows.Forms.Button();
+      this.btnNewAction = new System.Windows.Forms.Button();
       this.panel1 = new System.Windows.Forms.Panel();
-      this.lblMessageError = new System.Windows.Forms.Label();
+      this.chkTestMode = new System.Windows.Forms.CheckBox();
       this.contextTray.SuspendLayout();
       this.grpReceiver.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPageLastMessage.SuspendLayout();
       this.tabPageRawData.SuspendLayout();
+      this.tabPageActions.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.dataActions)).BeginInit();
+      this.pnlActionControls.SuspendLayout();
       this.panel1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -91,7 +112,7 @@
       this.grpReceiver.Dock = System.Windows.Forms.DockStyle.Left;
       this.grpReceiver.Location = new System.Drawing.Point(0, 0);
       this.grpReceiver.Name = "grpReceiver";
-      this.grpReceiver.Size = new System.Drawing.Size(232, 48);
+      this.grpReceiver.Size = new System.Drawing.Size(248, 48);
       this.grpReceiver.TabIndex = 1;
       this.grpReceiver.TabStop = false;
       // 
@@ -99,7 +120,7 @@
       // 
       this.btnReceiverConnectToggle.Location = new System.Drawing.Point(152, 16);
       this.btnReceiverConnectToggle.Name = "btnReceiverConnectToggle";
-      this.btnReceiverConnectToggle.Size = new System.Drawing.Size(72, 24);
+      this.btnReceiverConnectToggle.Size = new System.Drawing.Size(88, 24);
       this.btnReceiverConnectToggle.TabIndex = 2;
       this.btnReceiverConnectToggle.Text = "Connect";
       this.btnReceiverConnectToggle.UseVisualStyleBackColor = true;
@@ -128,6 +149,7 @@
       // 
       this.tabControl1.Controls.Add(this.tabPageLastMessage);
       this.tabControl1.Controls.Add(this.tabPageRawData);
+      this.tabControl1.Controls.Add(this.tabPageActions);
       this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.tabControl1.Location = new System.Drawing.Point(0, 48);
       this.tabControl1.Name = "tabControl1";
@@ -137,6 +159,10 @@
       // 
       // tabPageLastMessage
       // 
+      this.tabPageLastMessage.BackColor = System.Drawing.SystemColors.Control;
+      this.tabPageLastMessage.Controls.Add(this.txtMessageActions);
+      this.tabPageLastMessage.Controls.Add(this.lblExecutedActions);
+      this.tabPageLastMessage.Controls.Add(this.btnNewActionFromMessage);
       this.tabPageLastMessage.Controls.Add(this.lblMessageError);
       this.tabPageLastMessage.Controls.Add(this.txtRawData);
       this.tabPageLastMessage.Controls.Add(this.lblRawData);
@@ -156,7 +182,48 @@
       this.tabPageLastMessage.Size = new System.Drawing.Size(522, 428);
       this.tabPageLastMessage.TabIndex = 1;
       this.tabPageLastMessage.Text = "Last message";
-      this.tabPageLastMessage.UseVisualStyleBackColor = true;
+      // 
+      // txtMessageActions
+      // 
+      this.txtMessageActions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.txtMessageActions.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+      this.txtMessageActions.Location = new System.Drawing.Point(88, 104);
+      this.txtMessageActions.Name = "txtMessageActions";
+      this.txtMessageActions.ReadOnly = true;
+      this.txtMessageActions.Size = new System.Drawing.Size(392, 112);
+      this.txtMessageActions.TabIndex = 15;
+      this.txtMessageActions.Text = "";
+      this.txtMessageActions.WordWrap = false;
+      // 
+      // lblExecutedActions
+      // 
+      this.lblExecutedActions.AutoSize = true;
+      this.lblExecutedActions.Location = new System.Drawing.Point(8, 104);
+      this.lblExecutedActions.Name = "lblExecutedActions";
+      this.lblExecutedActions.Size = new System.Drawing.Size(47, 15);
+      this.lblExecutedActions.TabIndex = 14;
+      this.lblExecutedActions.Text = "Actions";
+      // 
+      // btnNewActionFromMessage
+      // 
+      this.btnNewActionFromMessage.Enabled = false;
+      this.btnNewActionFromMessage.Location = new System.Drawing.Point(256, 8);
+      this.btnNewActionFromMessage.Name = "btnNewActionFromMessage";
+      this.btnNewActionFromMessage.Size = new System.Drawing.Size(120, 24);
+      this.btnNewActionFromMessage.TabIndex = 13;
+      this.btnNewActionFromMessage.Text = "Define new action";
+      this.btnNewActionFromMessage.UseVisualStyleBackColor = true;
+      this.btnNewActionFromMessage.Click += new System.EventHandler(this.btnNewActionFromMessage_Click);
+      // 
+      // lblMessageError
+      // 
+      this.lblMessageError.ForeColor = System.Drawing.Color.Red;
+      this.lblMessageError.Location = new System.Drawing.Point(88, 224);
+      this.lblMessageError.Name = "lblMessageError";
+      this.lblMessageError.Size = new System.Drawing.Size(392, 56);
+      this.lblMessageError.TabIndex = 12;
+      this.lblMessageError.Text = "Address";
+      this.lblMessageError.Visible = false;
       // 
       // txtRawData
       // 
@@ -262,6 +329,7 @@
       // 
       // tabPageRawData
       // 
+      this.tabPageRawData.BackColor = System.Drawing.SystemColors.Control;
       this.tabPageRawData.Controls.Add(this.txtRawDataLog);
       this.tabPageRawData.Location = new System.Drawing.Point(4, 24);
       this.tabPageRawData.Name = "tabPageRawData";
@@ -269,7 +337,6 @@
       this.tabPageRawData.Size = new System.Drawing.Size(522, 428);
       this.tabPageRawData.TabIndex = 0;
       this.tabPageRawData.Text = "Raw data";
-      this.tabPageRawData.UseVisualStyleBackColor = true;
       // 
       // txtRawDataLog
       // 
@@ -284,8 +351,165 @@
       this.txtRawDataLog.Text = "";
       this.txtRawDataLog.WordWrap = false;
       // 
+      // tabPageActions
+      // 
+      this.tabPageActions.BackColor = System.Drawing.SystemColors.Control;
+      this.tabPageActions.Controls.Add(this.dataActions);
+      this.tabPageActions.Controls.Add(this.pnlActionControls);
+      this.tabPageActions.Location = new System.Drawing.Point(4, 24);
+      this.tabPageActions.Name = "tabPageActions";
+      this.tabPageActions.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPageActions.Size = new System.Drawing.Size(522, 428);
+      this.tabPageActions.TabIndex = 2;
+      this.tabPageActions.Text = "Actions";
+      // 
+      // dataActions
+      // 
+      this.dataActions.AllowUserToAddRows = false;
+      this.dataActions.AllowUserToDeleteRows = false;
+      this.dataActions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+      this.dataActions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+      this.dataActions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colName,
+            this.colProtocol,
+            this.colAddress,
+            this.colCommand,
+            this.colActionType,
+            this.colActionParameters,
+            this.colToggle,
+            this.colRepeat});
+      this.dataActions.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.dataActions.Location = new System.Drawing.Point(3, 32);
+      this.dataActions.MultiSelect = false;
+      this.dataActions.Name = "dataActions";
+      this.dataActions.ReadOnly = true;
+      this.dataActions.RowHeadersVisible = false;
+      this.dataActions.RowTemplate.Height = 25;
+      this.dataActions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+      this.dataActions.Size = new System.Drawing.Size(516, 393);
+      this.dataActions.TabIndex = 0;
+      this.dataActions.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataActions_CellDoubleClick);
+      this.dataActions.SelectionChanged += new System.EventHandler(this.dataActions_SelectionChanged);
+      this.dataActions.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataActions_KeyUp);
+      // 
+      // colName
+      // 
+      this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+      this.colName.DataPropertyName = "Name";
+      this.colName.HeaderText = "Name";
+      this.colName.MinimumWidth = 100;
+      this.colName.Name = "colName";
+      this.colName.ReadOnly = true;
+      // 
+      // colProtocol
+      // 
+      this.colProtocol.DataPropertyName = "Protocol";
+      this.colProtocol.HeaderText = "Protocol";
+      this.colProtocol.MinimumWidth = 60;
+      this.colProtocol.Name = "colProtocol";
+      this.colProtocol.ReadOnly = true;
+      // 
+      // colAddress
+      // 
+      this.colAddress.DataPropertyName = "Address";
+      this.colAddress.FillWeight = 66.14645F;
+      this.colAddress.HeaderText = "Address";
+      this.colAddress.MinimumWidth = 60;
+      this.colAddress.Name = "colAddress";
+      this.colAddress.ReadOnly = true;
+      // 
+      // colCommand
+      // 
+      this.colCommand.DataPropertyName = "Command";
+      this.colCommand.FillWeight = 66.14645F;
+      this.colCommand.HeaderText = "Command";
+      this.colCommand.MinimumWidth = 70;
+      this.colCommand.Name = "colCommand";
+      this.colCommand.ReadOnly = true;
+      // 
+      // colActionType
+      // 
+      this.colActionType.DataPropertyName = "ActionType";
+      this.colActionType.FillWeight = 99.21969F;
+      this.colActionType.HeaderText = "Type";
+      this.colActionType.MinimumWidth = 120;
+      this.colActionType.Name = "colActionType";
+      this.colActionType.ReadOnly = true;
+      // 
+      // colActionParameters
+      // 
+      this.colActionParameters.DataPropertyName = "ActionParameters";
+      this.colActionParameters.FillWeight = 330.7323F;
+      this.colActionParameters.HeaderText = "Parameters";
+      this.colActionParameters.Name = "colActionParameters";
+      this.colActionParameters.ReadOnly = true;
+      // 
+      // colToggle
+      // 
+      this.colToggle.DataPropertyName = "Toggle";
+      this.colToggle.HeaderText = "Toggle";
+      this.colToggle.Name = "colToggle";
+      this.colToggle.ReadOnly = true;
+      this.colToggle.Visible = false;
+      // 
+      // colRepeat
+      // 
+      this.colRepeat.DataPropertyName = "Repeat";
+      this.colRepeat.HeaderText = "Repeat";
+      this.colRepeat.Name = "colRepeat";
+      this.colRepeat.ReadOnly = true;
+      this.colRepeat.Visible = false;
+      // 
+      // pnlActionControls
+      // 
+      this.pnlActionControls.Controls.Add(this.btnDeleteAction);
+      this.pnlActionControls.Controls.Add(this.btnEditAction);
+      this.pnlActionControls.Controls.Add(this.btnNewAction);
+      this.pnlActionControls.Dock = System.Windows.Forms.DockStyle.Top;
+      this.pnlActionControls.Location = new System.Drawing.Point(3, 3);
+      this.pnlActionControls.Name = "pnlActionControls";
+      this.pnlActionControls.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
+      this.pnlActionControls.Size = new System.Drawing.Size(516, 29);
+      this.pnlActionControls.TabIndex = 1;
+      // 
+      // btnDeleteAction
+      // 
+      this.btnDeleteAction.Dock = System.Windows.Forms.DockStyle.Left;
+      this.btnDeleteAction.Enabled = false;
+      this.btnDeleteAction.Location = new System.Drawing.Point(144, 2);
+      this.btnDeleteAction.Name = "btnDeleteAction";
+      this.btnDeleteAction.Size = new System.Drawing.Size(72, 25);
+      this.btnDeleteAction.TabIndex = 2;
+      this.btnDeleteAction.Text = "Delete";
+      this.btnDeleteAction.UseVisualStyleBackColor = true;
+      this.btnDeleteAction.Click += new System.EventHandler(this.btnDeleteAction_Click);
+      // 
+      // btnEditAction
+      // 
+      this.btnEditAction.Dock = System.Windows.Forms.DockStyle.Left;
+      this.btnEditAction.Enabled = false;
+      this.btnEditAction.Location = new System.Drawing.Point(72, 2);
+      this.btnEditAction.Name = "btnEditAction";
+      this.btnEditAction.Size = new System.Drawing.Size(72, 25);
+      this.btnEditAction.TabIndex = 1;
+      this.btnEditAction.Text = "Edit";
+      this.btnEditAction.UseVisualStyleBackColor = true;
+      this.btnEditAction.Click += new System.EventHandler(this.btnEditAction_Click);
+      // 
+      // btnNewAction
+      // 
+      this.btnNewAction.Dock = System.Windows.Forms.DockStyle.Left;
+      this.btnNewAction.Location = new System.Drawing.Point(0, 2);
+      this.btnNewAction.Name = "btnNewAction";
+      this.btnNewAction.Size = new System.Drawing.Size(72, 25);
+      this.btnNewAction.TabIndex = 0;
+      this.btnNewAction.Text = "New";
+      this.btnNewAction.UseVisualStyleBackColor = true;
+      this.btnNewAction.Click += new System.EventHandler(this.btnNewAction_Click);
+      // 
       // panel1
       // 
+      this.panel1.Controls.Add(this.chkTestMode);
       this.panel1.Controls.Add(this.grpReceiver);
       this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
       this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -293,15 +517,15 @@
       this.panel1.Size = new System.Drawing.Size(530, 48);
       this.panel1.TabIndex = 3;
       // 
-      // lblMessageError
+      // chkTestMode
       // 
-      this.lblMessageError.ForeColor = System.Drawing.Color.Red;
-      this.lblMessageError.Location = new System.Drawing.Point(88, 104);
-      this.lblMessageError.Name = "lblMessageError";
-      this.lblMessageError.Size = new System.Drawing.Size(392, 72);
-      this.lblMessageError.TabIndex = 12;
-      this.lblMessageError.Text = "Address";
-      this.lblMessageError.Visible = false;
+      this.chkTestMode.AutoSize = true;
+      this.chkTestMode.Location = new System.Drawing.Point(264, 16);
+      this.chkTestMode.Name = "chkTestMode";
+      this.chkTestMode.Size = new System.Drawing.Size(238, 19);
+      this.chkTestMode.TabIndex = 4;
+      this.chkTestMode.Text = "Test mode (actions will not be executed)";
+      this.chkTestMode.UseVisualStyleBackColor = true;
       // 
       // frmMain
       // 
@@ -311,6 +535,7 @@
       this.Controls.Add(this.tabControl1);
       this.Controls.Add(this.panel1);
       this.Name = "frmMain";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "ArsiParsi";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
@@ -322,7 +547,11 @@
       this.tabPageLastMessage.ResumeLayout(false);
       this.tabPageLastMessage.PerformLayout();
       this.tabPageRawData.ResumeLayout(false);
+      this.tabPageActions.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.dataActions)).EndInit();
+      this.pnlActionControls.ResumeLayout(false);
       this.panel1.ResumeLayout(false);
+      this.panel1.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -354,5 +583,23 @@
     private TextBox txtProtocol;
     private Label lblProtocol;
     private Label lblMessageError;
+    private Button btnNewActionFromMessage;
+    private TabPage tabPageActions;
+    private DataGridView dataActions;
+    private Panel pnlActionControls;
+    private DataGridViewTextBoxColumn colName;
+    private DataGridViewTextBoxColumn colProtocol;
+    private DataGridViewTextBoxColumn colAddress;
+    private DataGridViewTextBoxColumn colCommand;
+    private DataGridViewTextBoxColumn colActionType;
+    private DataGridViewTextBoxColumn colActionParameters;
+    private DataGridViewTextBoxColumn colToggle;
+    private DataGridViewTextBoxColumn colRepeat;
+    private Button btnDeleteAction;
+    private Button btnEditAction;
+    private Button btnNewAction;
+    private CheckBox chkTestMode;
+    private RichTextBox txtMessageActions;
+    private Label lblExecutedActions;
   }
 }

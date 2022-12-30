@@ -31,6 +31,8 @@ namespace ArsiParsi
 
     public string ComPort { get; set; }
 
+    public List<RCAction> Actions { get; set; } = new List<RCAction>();
+   
     public void Save()
     {
       if (File.Exists(_path)) File.Delete(_path);
