@@ -69,6 +69,11 @@ namespace ArsiParsi
             MoveMouse(this.ActionParameters);
             break;
           }
+        case RCActionType.MouseButton:
+          {
+            MouseEvent(this.ActionParameters);
+            break;
+          }
       }
     }
 
@@ -102,6 +107,64 @@ namespace ArsiParsi
       if (parts[0].Contains("R")) x = distance;
 
       Cursor.Position = new Point(Cursor.Position.X + x, Cursor.Position.Y + y);
+    }
+
+    public static void MouseEvent(string parameters)
+    {
+      switch (parameters)
+      {
+        case MouseEvents.LEFT_CLICK:
+          {
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftDown);
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftUp);
+            break;
+          }
+        case MouseEvents.DOUBLE_CLICK:
+          {
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftDown);
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftUp);
+            Thread.Sleep(200);
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftDown);
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftUp);
+            break;
+          }
+        case MouseEvents.RIGHT_CLICK:
+          {
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.RightDown);
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.RightUp);
+            break;
+          }
+        case MouseEvents.LEFT_DOWN:
+          {
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftDown);
+            break;
+          }
+        case MouseEvents.LEFT_UP:
+          {
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftUp);
+            break;
+          }
+        case MouseEvents.MIDDLE_UP:
+          {
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.MiddleUp);
+            break;
+          }
+        case MouseEvents.MIDDLE_DOWN:
+          {
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.MiddleDown);
+            break;
+          }
+        case MouseEvents.RIGHT_UP:
+          {
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.RightUp);
+            break;
+          }
+        case MouseEvents.RIGHT_DOWN:
+          {
+            MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.RightDown);
+            break;
+          }
+      }
     }
   }
 }

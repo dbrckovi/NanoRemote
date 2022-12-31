@@ -103,6 +103,11 @@ namespace ArsiParsi
             pnlActionEditorContainer.Controls.Add(new MoveMouseEditor());
             break;
           }
+        case RCActionType.MouseButton:
+          {
+            pnlActionEditorContainer.Controls.Add(new MouseClickEditor());
+            break;
+          }
       }
 
       if (pnlActionEditorContainer.Controls.Count > 0)
