@@ -30,6 +30,7 @@ namespace ArsiParsi
     #endregion Singleton
 
     public string ComPort { get; set; }
+    public bool ShowSplash { get; set; } = true;
 
     public List<RCAction> Actions { get; set; } = new List<RCAction>();
    

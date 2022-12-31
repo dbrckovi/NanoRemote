@@ -13,6 +13,7 @@ namespace ArsiParsi
     bool _allowVisible = false;
     bool _allowClose = false;
     RCMessage _lastMessage;
+    bool _fullyLoaded = false;
 
     /// <summary>
     /// Gets currently selected action in <see cref="dataActions"/>
@@ -56,6 +57,13 @@ namespace ArsiParsi
         }
 
         dataActions.AutoGenerateColumns = false;
+
+        chkSplashOnStartup.Checked = Config.Instance.ShowSplash;
+        if (Config.Instance.ShowSplash)
+        {
+          frmSplash splash = new frmSplash();
+          splash.Show();
+        }
       }
     }
 
@@ -259,6 +267,21 @@ namespace ArsiParsi
       }
     }
 
+    private void SetToolTips()
+    {
+      toolTip1.SetToolTip(cmbReceiverPort, "COM port where RC receiver is connected");
+      toolTip1.SetToolTip(btnReceiverConnectToggle, "Connect or disconnect the RC receiver");
+      toolTip1.SetToolTip(chkTestMode, "When enabled messages will be received, but their actions will be skipped");
+      toolTip1.SetToolTip(btnNewActionFromMessage, "Opens an action editor and fills it with data of the last received RC message");
+
+      toolTip1.SetToolTip(btnNewAction, "Opens a blank action editor allowing you to create a new action, but you will have to fill in filter parameters manually");
+      toolTip1.SetToolTip(btnEditAction, "Allows you to change currently selected action");
+      toolTip1.SetToolTip(btnDeleteAction, "Deletes currently selected action");
+
+      toolTip1.SetToolTip(chkLogRawData, "When enabled, logs raw data received from the RC receiver");
+      toolTip1.SetToolTip(chkSplashOnStartup, "Enables or disable the splash on startup");
+    }
+
     private void _receiver_RawDataReceived(string value)
     {
       if (this.InvokeRequired)
@@ -306,7 +329,9 @@ namespace ArsiParsi
     {
       try
       {
+        SetToolTips();
         RefreshGUI();
+        _fullyLoaded = true;
       }
       catch (Exception ex)
       {
@@ -427,6 +452,15 @@ namespace ArsiParsi
     private void btnClearLog_Click(object sender, EventArgs e)
     {
       txtLog.Text = "";
+    }
+
+    private void chkSplashOnStartup_CheckedChanged(object sender, EventArgs e)
+    {
+      if (_fullyLoaded)
+      {
+        Config.Instance.ShowSplash = chkSplashOnStartup.Checked;
+        Config.Instance.Save();
+      }
     }
   }
 }

@@ -11,7 +11,9 @@ namespace ArsiParsi
       RunTime = true;
       try
       {
-        Config c = Config.Instance;   //load config
+        if (!Directory.Exists(ConfigDirectory)) Directory.CreateDirectory(ConfigDirectory);
+
+        Config c = Config.Instance;   //triggers config to load or be created
 
         ApplicationConfiguration.Initialize();
         Application.Run(new frmMain());

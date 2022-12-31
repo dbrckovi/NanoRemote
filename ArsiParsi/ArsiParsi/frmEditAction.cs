@@ -18,6 +18,7 @@ namespace ArsiParsi
     public frmEditAction()
     {
       InitializeComponent();
+      this.Icon = Properties.Resources.RemoteOff;
     }
 
     public frmEditAction(RCAction action) : this()
@@ -25,8 +26,33 @@ namespace ArsiParsi
       _action = action;
     }
 
+    private void SetToolTips()
+    {
+      toolTip1.SetToolTip(chkProtocol, "When enabled action will be executed only on this protocol");
+      toolTip1.SetToolTip(chkAddress, "When enabled action will be executed only on this address");
+      toolTip1.SetToolTip(chkCommand, "When enabled action will be executed only on this command");
+
+      toolTip1.SetToolTip(txtProtocol, "Message protocol");
+      toolTip1.SetToolTip(numAddress, "Message address value");
+      toolTip1.SetToolTip(numCommand, "Message command value");
+
+      toolTip1.SetToolTip(radToggleIgnore, "Toggle flag will be ignored");
+      toolTip1.SetToolTip(radToggleFalse, "Action will be executed only when 'Toggle' flag is OFF");
+      toolTip1.SetToolTip(radToggleTrue, "Action will be executed only when 'Toggle' flag is ON");
+
+      toolTip1.SetToolTip(radRepeatIgnore, "Repeat flag will be ignored");
+      toolTip1.SetToolTip(radRepeatFalse, "Action will be executed only when 'Repeat' flag is OFF (only on first press)");
+      toolTip1.SetToolTip(radRepeatTrue, "Action will be executed only when 'Repeat' flag is ON (only when button is held down)");
+
+      toolTip1.SetToolTip(cmbActionType, "Specifies the type of action which will occur when matching remote control message is received");
+      toolTip1.SetToolTip(txtName, "Name of the action (so it's easier to find it in the grid)");
+      toolTip1.SetToolTip(numDelayAfterExecution, "When the same message is received again within this period it will be ignored.");
+    }
+
     private void frmEditAction_Load(object sender, EventArgs e)
     {
+      SetToolTips();
+
       foreach (RCActionType actionType in Enum.GetValues(typeof(RCActionType)))
       {
         cmbActionType.Items.Add(actionType);

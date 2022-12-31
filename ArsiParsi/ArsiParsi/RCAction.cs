@@ -123,7 +123,7 @@ namespace ArsiParsi
           {
             MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftDown);
             MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftUp);
-            Thread.Sleep(200);
+            Thread.Sleep(100);
             MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftDown);
             MouseEvents.MouseEvent(MouseEvents.MouseEventFlags.LeftUp);
             break;
