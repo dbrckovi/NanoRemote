@@ -104,8 +104,8 @@
       this.numAddress.Location = new System.Drawing.Point(137, 93);
       this.numAddress.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
       this.numAddress.Maximum = new decimal(new int[] {
-            255,
             0,
+            1,
             0,
             0});
       this.numAddress.Name = "numAddress";
@@ -118,8 +118,8 @@
       this.numCommand.Location = new System.Drawing.Point(137, 147);
       this.numCommand.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
       this.numCommand.Maximum = new decimal(new int[] {
-            255,
             0,
+            1,
             0,
             0});
       this.numCommand.Name = "numCommand";
